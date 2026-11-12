@@ -58,7 +58,7 @@ O diferencial deste módulo em relação a conversores convencionais é a presen
 
 <img src="imagem_1.png" alt="Vista Superior" width="700"/>
 
-*Vista superior — FT232RL SSOP-28, USB-C, LEDs SMD 0805, jumper JP1 e conector de 6 pinos*
+*Vista superior — FT232RL SSOP-28, USB-C, LEDs SMD 0805, jumper JP1 e conector de 6 pinos (render da versão original)*
 
 <br/>
 
@@ -72,18 +72,17 @@ O diferencial deste módulo em relação a conversores convencionais é a presen
 
 ## Funcionalidades
 
-- ✅ **Chip FT232RL** (SSOP-28 SMD) — conversor USB-Serial confiável e amplamente suportado
-- ✅ **Conector USB-C** (USB4105GFA SMD) — entrada USB moderna e resistente
-- ✅ **Seleção de tensão 3,3V / 5V** via jumper JP1 — compatível com diferentes lógicas
-- ✅ **Pino RTS** disponível no conector de saída — diferencial para reset automático
+- ✅ **Chip FT232RL** (SSOP-28 SMD) — conversor USB-Serial com oscilador e EEPROM internos
+- ✅ **Conector USB-C** (USB4105GFA) — USB 2.0, resistores de 5,1 kΩ no CC1/CC2 (R1, R2)
+- ✅ **Seleção de tensão 5V / 3,3V** via jumper JP1 — define o pino VCC do J2 **e o VCCIO do FT232RL** (nível lógico das saídas)
+- ✅ **Pino RTS** disponível no conector de saída
 - ✅ **Pino DTR** disponível — reset automático de Arduino e bootloaders
-- ✅ **3 LEDs SMD 0805** (L1, L2, L3) — indicação visual de TX, RX e alimentação
-- ✅ **Diodo Schottky SS1P3L** (D1, DO-220AA SMD) — proteção na linha de alimentação VBUS
-- ✅ **Capacitor eletrolítico 10µF/16V** (C1, EIA-3216 SMD) — filtragem da alimentação
-- ✅ **Capacitores de desacoplamento 100nF e 1µF** (C2, C3, C4 — 0805 SMD)
-- ✅ **Resistores de proteção e pull-up** (R1–R6 — 1206 SMD)
-- ✅ **Layout totalmente SMD** — compacto e profissional
-- ✅ **Saída por header de 6 pinos angulado** (J2) — encaixe direto em cabos e módulos
+- ✅ **3 LEDs SMD 0805** — D2 alimentação, D3 TX (CBUS0), D4 RX (CBUS1)
+- ✅ **Diodo Schottky SS1P3L** (D1, DO-220AA SMD) — proteção contra corrente reversa entre VBUS e +5V
+- ✅ **Capacitor de tântalo 10µF/16V** (C2, EIA-3216 SMD) + 100nF (C1) — filtragem da entrada VBUS
+- ✅ **Desacoplamento do FT232RL** — 100nF no VCC (C3) e 1µF no 3V3OUT (C4), 0805 SMD
+- ✅ **Resistores 1206 SMD** — R1/R2 5,1 kΩ (CC), R3 0 Ω (VBUS), R4–R6 1 kΩ (LEDs)
+- ✅ **Saída por barra de 6 pinos 90°** (J2) na borda da placa
 
 ---
 
@@ -91,20 +90,16 @@ O diferencial deste módulo em relação a conversores convencionais é a presen
 
 ```
 ┌─────────────┐       ┌──────────────────┐       ┌─────────────────────────┐
-│  USB-C      │       │   FT232RL        │       │  Conector J2 (6 pinos)  │
-│ USB4105GFA  │──────►│   SSOP-28        │──────►│  GND                    │
-│             │  USB  │                  │       │  RTS  ← diferencial     │
-│  D+ / D-   │       │  TX / RX / DTR   │       │  VCC (3,3V ou 5V)       │
-└─────────────┘       │  RTS / CTS       │       │  TX                     │
-                      │  CBUS0 / CBUS1   │       │  RX                     │
-                      └──────────────────┘       │  DTR                    │
-                               │                 └─────────────────────────┘
-                          [JP1 Jumper]
-                        3,3V ●──○──● 5V
-                        (seleção de tensão VCC)
-
-         [L1] TX LED    [L2] RX LED    [L3] PWR LED  ← indicação visual
-         [D1] Schottky SS1P3L ← proteção VBUS
+│  USB-C  J1  │       │   FT232RL  U1    │       │  J2 (6 pinos 90°)       │
+│ USB4105GFA  │──────►│   SSOP-28        │──────►│  1 DTR                  │
+│  D+ / D-    │  USB  │  TXD/RXD/DTR/RTS │       │  2 RXD (entrada)        │
+└──────┬──────┘       │  CBUS0 / CBUS1   │       │  3 TXD (saída)          │
+       │ VBUS         │  VCCIO ◄── VOUT  │       │  4 VCC = VOUT           │
+   R3 0Ω → D1 SS1P3L  └──────────────────┘       │  5 RTS                  │
+       → +5V (VCC)            │ 3V3OUT           │  6 GND                  │
+                          [JP1] 1-2 = 5V  /  2-3 = 3,3V → VOUT
+                                                 └─────────────────────────┘
+   D2 PWR (+5V)    D3 TX (CBUS0)    D4 RX (CBUS1)
 ```
 
 ---
@@ -114,18 +109,18 @@ O diferencial deste módulo em relação a conversores convencionais é a presen
 | Parâmetro | Valor |
 |-----------|-------|
 | **Chip conversor** | FT232RL (SSOP-28 SMD) |
-| **Conector USB** | USB-C — USB4105GFA SMD |
-| **Tensão de saída** | 3,3V ou 5V (selecionável via JP1) |
-| **Interface serial** | UART — TX, RX, RTS, CTS, DTR |
-| **Pinos disponíveis** | GND, RTS, VCC, TX, RX, DTR |
-| **LEDs de status** | 3x SMD 0805 — TX (L1), RX (L2), PWR (L3) |
+| **Conector USB** | USB-C — USB4105GFA (USB 2.0) |
+| **Tensão de saída / nível lógico** | 5V ou 3,3V (JP1 → VOUT = VCC do J2 e VCCIO do FT232RL) |
+| **Saída 3,3V** | regulador interno do FT232RL (3V3OUT) — até ~50 mA |
+| **Pinos do J2** | DTR, RXD, TXD, VCC, RTS, GND |
+| **LEDs de status** | 3x SMD 0805 — D2 PWR, D3 TX, D4 RX |
 | **Diodo de proteção** | SS1P3L — Schottky (DO-220AA SMD) |
-| **Capacitor principal** | 10µF / 16V (EIA-3216 SMD) |
-| **Capacitores de desacoplamento** | 100nF e 1µF (0805 SMD) |
-| **Resistores** | 0Ω, 1KΩ, 5,1KΩ (1206 SMD) |
+| **Capacitor de entrada** | 10µF / 16V tântalo (EIA-3216) + 100nF |
+| **Capacitores do FT232RL** | 100nF (VCC) e 1µF (3V3OUT), 0805 SMD |
+| **Resistores** | 0Ω, 1kΩ, 5,1kΩ (1206 SMD) |
 | **Jumper de tensão** | JP1 — 3 pinos 2,54mm (header vertical) |
-| **Conector de saída** | J2 — 6 pinos angulado 2,54mm (right angle) |
-| **Tipo de montagem** | SMD |
+| **Conector de saída** | J2 — 6 pinos 90° 2,54mm na borda |
+| **Placa** | 41,7 × 18,4 mm, 2 camadas |
 | **Ferramenta de Projeto** | KiCad 10 |
 
 ---
@@ -135,55 +130,61 @@ O diferencial deste módulo em relação a conversores convencionais é a presen
 | Ref | Componente | Valor / Parte | Encapsulamento |
 |-----|-----------|--------------|----------------|
 | U1 | Conversor USB-Serial | FT232RL | SSOP-28 SMD |
-| J1 | Conector USB | USB-C (USB4105GFA) | SMD |
-| J2 | Conector de Saída | 6 pinos — GND/RTS/VCC/TX/RX/DTR | Header angulado 2,54mm |
-| JP1 | Jumper de Tensão | 3,3V / VCC / 5V | Header 3 pinos 2,54mm |
-| D1 | Diodo Schottky | SS1P3L | DO-220AA SMD |
-| L1 | LED TX | SMD 0805 | 0805 |
-| L2 | LED RX | SMD 0805 | 0805 |
-| L3 | LED PWR | SMD 0805 | 0805 |
-| C1 | Capacitor Eletrolítico | 10µF / 16V | EIA-3216-18 SMD |
-| C2, C3 | Capacitor de desacoplamento | 100nF | 0805 SMD |
-| C4 | Capacitor de desacoplamento | 1µF / 50V | 0805 SMD |
-| R1, R2 | Resistor | 0Ω (jumper) | 1206 SMD |
-| R3, R4, R5 | Resistor de proteção | 1KΩ | 1206 SMD |
-| R6 | Resistor pull-up | 5,1KΩ | 1206 SMD |
+| J1 | Conector USB | USB-C (USB4105GFA) | SMD + furos de fixação |
+| J2 | Conector de Saída | 6 pinos — DTR/RXD/TXD/VCC/RTS/GND | Barra 90° 2,54mm |
+| JP1 | Jumper de Tensão | 5V / VOUT / 3,3V | Header 3 pinos 2,54mm |
+| D1 | Diodo Schottky | SS1P3L | DO-220AA (SMP) |
+| D2 | LED PWR | LED 0805 | 0805 |
+| D3 | LED TX | LED 0805 | 0805 |
+| D4 | LED RX | LED 0805 | 0805 |
+| C1 | Capacitor cerâmico (VBUS) | 100nF | 0805 SMD |
+| C2 | Capacitor de tântalo (VBUS) | 10µF / 16V | EIA-3216-18 (A) |
+| C3 | Capacitor cerâmico (VCC do FT232RL) | 100nF | 0805 SMD |
+| C4 | Capacitor cerâmico (3V3OUT) | 1µF / 50V | 0805 SMD |
+| R1, R2 | Resistor CC1 / CC2 (USB-C) | 5,1kΩ | 1206 SMD |
+| R3 | Resistor jumper (VBUS) | 0Ω | 1206 SMD |
+| R4 | Resistor do LED PWR | 1kΩ | 1206 SMD |
+| R5, R6 | Resistor dos LEDs TX / RX | 1kΩ | 1206 SMD |
 
 ---
 
 ## Pinagem dos Conectores
 
-### J2 — Saída Serial (6 pinos angulado)
+### J2 — Saída Serial (6 pinos 90°)
 
 | Pino | Sinal | Descrição |
 |------|-------|-----------|
-| 1 | GND | Terra |
-| 2 | RTS | Request To Send — reset via RTS |
-| 3 | VCC | Tensão de saída (3,3V ou 5V conforme JP1) |
-| 4 | TX | Transmissão serial (saída do FT232RL) |
-| 5 | RX | Recepção serial (entrada do FT232RL) |
-| 6 | DTR | Data Terminal Ready — reset automático Arduino |
+| 1 | DTR | Data Terminal Ready — reset automático Arduino |
+| 2 | RXD | Recepção serial (entrada do FT232RL → ligar no TX do micro) |
+| 3 | TXD | Transmissão serial (saída do FT232RL → ligar no RX do micro) |
+| 4 | VCC | Tensão de saída (5V ou 3,3V conforme JP1) |
+| 5 | RTS | Request To Send — saída do FT232RL (reset / controle de fluxo) |
+| 6 | GND | Terra |
 
 ### JP1 — Seleção de Tensão
 
-| Posição | Tensão VCC |
+| Posição | VCC (J2.4) e VCCIO |
 |---------|-----------|
-| Pinos 1-2 | 3,3V |
-| Pinos 2-3 | 5V |
+| Pinos 1-2 | 5V |
+| Pinos 2-3 | 3,3V |
 
 ---
 
 ## Seleção de Tensão — JP1
 
-O jumper **JP1** define a tensão disponível no pino **VCC** do conector J2:
+O jumper **JP1** liga o **VOUT** ao +5V (pinos 1-2) ou ao 3V3OUT do FT232RL (pinos 2-3). O VOUT alimenta o pino **VCC** do J2 e o **VCCIO** do FT232RL, que define o nível lógico de TXD, RXD, DTR, RTS e dos LEDs.
 
 ```
-JP1:
-  ●──○  ○    →  VCC = 3,3V  (para ESP8266, ESP32, módulos 3,3V)
-  ○  ○──●    →  VCC = 5V    (para Arduino Uno, módulos 5V)
+JP1 (pino 1 = +5V, 2 = VOUT, 3 = 3V3OUT):
+  ●──●  ○    →  VOUT = 5V    (Arduino Uno, módulos 5V)
+  ○  ●──●    →  VOUT = 3,3V  (ESP8266, ESP32, módulos 3,3V)
 ```
 
 > ⚠️ Certifique-se de selecionar a tensão correta antes de conectar o dispositivo. Tensão incorreta pode danificar o hardware conectado.
+
+> ℹ️ Sem o jumper o VCCIO fica sem alimentação e as saídas do FT232RL não funcionam: deixe sempre uma das duas posições fechada.
+
+> ℹ️ Em 3,3V o regulador interno do FT232RL fornece no máximo ~50 mA no pino VCC.
 
 ---
 
@@ -202,23 +203,19 @@ JP1:
 
 ```
 FTDI232_COM_RTS/
-├── FTDI232.kicad_pro             # Arquivo de projeto KiCad
-├── FTDI232.kicad_sch             # Esquemático (KiCad 10)
-├── FTDI232.kicad_pcb             # Layout da PCB (KiCad 10)
-├── FTDI232.kicad_prl             # Configurações locais do projeto
-├── packages3D/                   # Modelos 3D arquivados (STEP / WRL)
-│   ├── USB4105GFA.STEP
-│   ├── SSOP-28_5.3x10.2mm_P0.65mm.wrl
-│   ├── D_SMP_DO-220AA.wrl
-│   ├── CP_EIA-3216-18_Kemet-A.wrl
-│   ├── LED_0805_2012Metric.wrl
-│   ├── R_1206_3216Metric.wrl
-│   ├── C_0805_2012Metric.wrl
-│   ├── PinHeader_1x03_P2.54mm_Vertical.wrl
-│   └── PinHeader_6X1_right.stp
-├── fp-info-cache                 # Cache de footprints
+├── FTDI232_COM_RTS.kicad_pro     # Projeto KiCad 10
+├── FTDI232_COM_RTS.kicad_sch     # Esquemático: capa A2 (índice das folhas)
+├── USB_POWER.kicad_sch           # Folha 02: USB-C + alimentação
+├── FT232RL.kicad_sch             # Folha 03: FT232RL, LEDs TX/RX, jumper VCCIO
+├── CONN.kicad_sch                # Folha 04: J2 + PWR_FLAG
+├── FTDI232_COM_RTS.kicad_pcb     # Layout da PCB (KiCad 10)
+├── FTDI232_COM_RTS.kicad_prl     # Configurações locais
+├── FTDI232_COM_RTS.kicad_dru     # Regra: furo-cobre 0,15 mm só dentro do USB-C (J1)
+├── Zat_TitleBlock.kicad_wks      # Title block ZAT ELECTRONIC
+├── packages3D/                   # Modelos 3D arquivados (referência)
 ├── imagem_1.png                  # Render 3D superior
 ├── imagem_2.png                  # Render 3D isométrico
+├── LEIA-ME_REVISAO_R01.md        # O que mudou na revisão R01
 └── README.md
 ```
 
@@ -247,7 +244,7 @@ GND        ──────►  GND
 VCC (3,3V) ──────►  3V3
 TX         ──────►  RX
 RX         ──────►  TX
-RTS/DTR    ──────►  EN / GPIO0 (modo flash)
+RTS/DTR    ──────►  EN / GPIO0 (via circuito de 2 transistores da placa ESP)
 ```
 
 ### Instalação de drivers
