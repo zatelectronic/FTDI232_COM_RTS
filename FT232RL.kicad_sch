@@ -1583,25 +1583,23 @@
 		(dnp no)
 		(uuid "00ea23b6-61d7-4562-986f-0552bc3191a8")
 		(property "Reference" "R6"
-			(at 156.21 68.58 90)
+			(at 156.21 63.5 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "1k"
-			(at 157.48 71.12 90)
+			(at 156.21 68.58 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
@@ -3203,7 +3201,7 @@
 		(dnp no)
 		(uuid "978b3c32-547d-438e-9436-c65ef980d4e5")
 		(property "Reference" "JP1"
-			(at 227.33 67.31 90)
+			(at 223.52 68.58 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3214,7 +3212,7 @@
 			)
 		)
 		(property "Value" "Jumper_3_Open"
-			(at 223.52 69.85 90)
+			(at 223.52 70.485 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

@@ -1876,14 +1876,13 @@
 			)
 		)
 		(property "Value" "VBUS"
-			(at 151.13 71.12 90)
+			(at 156.21 69.215 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2058,14 +2057,13 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 151.13 92.7099 90)
+			(at 153.67 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -2547,14 +2545,13 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 207.01 71.12 90)
+			(at 201.93 73.025 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2614,25 +2611,25 @@
 		(dnp no)
 		(uuid "ea6fe9c5-5f93-4574-a7ab-b83a3386acae")
 		(property "Reference" "D2"
-			(at 203.2 86.36 90)
+			(at 200.025 88.265 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "LED_0805"
-			(at 199.39 88.9 90)
+			(at 200.025 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
@@ -3091,14 +3088,13 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 127 80.0099 90)
+			(at 124.46 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -3158,25 +3154,23 @@
 		(dnp no)
 		(uuid "0fe1b9c9-5cca-407c-8b26-77f6d18ba321")
 		(property "Reference" "R2"
-			(at 119.38 74.93 90)
+			(at 118.11 75.565 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "5k1"
-			(at 120.65 77.47 90)
+			(at 118.11 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
@@ -3350,14 +3344,13 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 118.11 93.9799 90)
+			(at 115.57 96.52 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -3417,23 +3410,25 @@
 		(dnp no)
 		(uuid "af663399-1734-44d6-b154-cd4645fc1df2")
 		(property "Reference" "J1"
-			(at 91.44 66.04 0)
+			(at 76.2 69.215 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "USB4105GFA"
-			(at 91.44 69.85 0)
+			(at 76.2 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "ZAT_Connector:USB4105GFA"
@@ -3717,14 +3712,13 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 55.88 80.0099 90)
+			(at 58.42 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -3784,25 +3778,23 @@
 		(dnp no)
 		(uuid "c3ea1db3-a0df-4455-8320-05656e7e99ab")
 		(property "Reference" "R1"
-			(at 66.04 74.93 90)
+			(at 64.77 75.565 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "5k1"
-			(at 67.31 77.47 90)
+			(at 64.77 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
